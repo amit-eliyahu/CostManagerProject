@@ -14,10 +14,10 @@ const reportRouter = require('./routes/report');
 const aboutRouter = require('./routes/about');
 
 const app = express();
-
+const MONGODB_URI = process.env.MONGODB_URI
 
 // connection to database
-mongoose.connect('mongodb+srv://amit270399:Amitnoam13@cluster0.0iyl5.mongodb.net/')
+mongoose.connect(MONGODB_URI)
     .then(() =>
       console.log("Connected to MongoDB Atlas"))
     .catch((err) => console.log("Error connecting to MongoDB Atlas:", err));
