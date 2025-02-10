@@ -4,11 +4,11 @@ const User = require('../models/user');
 const Cost = require('../models/cost');
 
 router.get('/:userid', async (req, res) => {
-  const userId = req.params.userid;
+  const userId = req.params.userid;  // מזהה המשתמש מה- URL
 
   try {
-    // חיפוש המשתמש לפי userId שהוא מחרוזת (ולא ObjectId)
-    const user = await User.findOne({ userid: userId });
+    // חיפוש המשתמש לפי ה-id (ולא userid)
+    const user = await User.findOne({ id: userId });
     if (!user) {
       return res.status(404).json({ error: "User not found" });
     }
