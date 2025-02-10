@@ -30,18 +30,17 @@ router.get('/report', async (req, res) => {
         });
 
         // קיבוץ ההוצאות לפי קטגוריה
-        const groupedCosts = costs.reduce((acc, cost) => {
-            const category = cost.category;
-            if (!acc[category]) {
-                acc[category] = [];
+        const groupedCosts = {};
+        costs.forEach(cost => {
+            if (!groupedCosts[cost.category]) {
+                groupedCosts[cost.category] = [];
             }
-            acc[category].push({
+            groupedCosts[cost.category].push({
                 sum: cost.sum,
                 description: cost.description,
                 day: cost.date.getUTCDate() // שליפת היום מתוך התאריך
             });
-            return acc;
-        }, {});
+        });
 
         // מחזירים JSON מסודר
         res.status(200).json({
