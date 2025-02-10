@@ -16,9 +16,12 @@ const aboutRouter = require('./routes/about');
 const app = express();
 const MONGO_URI = process.env.MONGO_URI;
 
+console.log("MONGO_URI:", MONGO_URI);
+
 mongoose.connect(MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true })
     .then(() => console.log("Connected to MongoDB Atlas"))
     .catch((err) => console.error("Error connecting to MongoDB Atlas:", err));
+
 /*
 // connection to database
 mongoose.connect('mongodb+srv://amit270399:Amitnoam13@cluster0.0iyl5.mongodb.net/')
