@@ -23,7 +23,9 @@ mongoose.connect(MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true })
     .catch((err) => console.error("Error connecting to MongoDB Atlas:", err));
 
 
+
   const connection = mongoose.connection;
+
 
   connection.once('open', () => {
     console.log('MongoDB Atlas connection established successfully');

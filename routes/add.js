@@ -10,7 +10,6 @@ router.post('/', async (req, res) => {
 
     if (date) {
         const parsedDate = new Date(date);
-
         // בדיקה אם התאריך שהוזן הוא תאריך תקין
         if (!isNaN(parsedDate)) {
             costDate = parsedDate;
