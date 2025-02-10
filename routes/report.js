@@ -3,7 +3,7 @@ const router = express.Router();
 const mongoose = require('mongoose');
 const Cost = require('../models/cost'); // ייבוא המודל של ההוצאות
 
-router.get('/report', async (req, res) => {
+router.get('report', async (req, res) => {
     try {
         const { id, year, month } = req.query;
 
