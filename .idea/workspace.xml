@@ -39,6 +39,7 @@
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
+    <option name="showMembers" value="true" />
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
@@ -76,7 +77,7 @@
       <workItem from="1737883552589" duration="8318000" />
       <workItem from="1738233385433" duration="23272000" />
       <workItem from="1738269280099" duration="7000" />
-      <workItem from="1738320084031" duration="48101000" />
+      <workItem from="1738320084031" duration="50480000" />
     </task>
     <task id="LOCAL-00001" summary="initial commit">
       <option name="closed" value="true" />

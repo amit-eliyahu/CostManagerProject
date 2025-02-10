@@ -1,26 +1,39 @@
 const express = require('express');
 const router = express.Router();
-const User = require('../models/user'); // מודל משתמש
+const User = require('../models/user');
+const Cost = require('../models/cost');
 
-router.get('/:id', async (req, res) => {
-  const userId = req.params.id;
+// קבלת פרטי משתמש וסכום כל ההוצאות שלו
+router.get('/:userid', async (req, res) => {
+  const userId = req.params.userid;
+
   try {
+    // חיפוש המשתמש במסד הנתונים
     const user = await User.findById(userId);
-    const costs = await Cost.aggregate([
-      { $match: { userid: userId } },
-      { $group: { _id: null, total: { $sum: "$sum" } } }
-    ]);
+    if (!user) {
+      return res.status(404).json({ error: "User not found" });
+    }
 
+    // חיפוש כל ההוצאות של המשתמש
+    const costs = await Cost.find({ userid: userId });
+
+    // חישוב הסכום הכולל של ההוצאות ללא reduce
+    let totalSum = 0;
+    for (const cost of costs) {
+      totalSum += cost.sum;
+    }
+
+    // החזרת נתוני המשתמש והסכום הכולל
     res.status(200).json({
       first_name: user.first_name,
       last_name: user.last_name,
       id: userId,
-      total: costs[0] ? costs[0].total : 0
+      total: totalSum
     });
+
   } catch (error) {
-    res.status(400).json({ error: error.message });
+    res.status(500).json({ error: error.message });
   }
 });
 
 module.exports = router;
-
