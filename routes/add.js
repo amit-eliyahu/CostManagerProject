@@ -4,8 +4,18 @@ const Cost = require('../models/cost'); // מודל עלות
 
 
 router.post('/', async (req, res) => {
-    const { description, category, userid, sum } = req.body;
-    const costDate = date ? new Date(date) : Date.now();
+    const { description, category, userid, sum, date } = req.body;
+
+    let costDate = Date.now();  // ברירת מחדל: תאריך הזמן הנוכחי.
+
+    if (date) {
+        const parsedDate = new Date(date);
+
+        // בדיקה אם התאריך שהוזן הוא תאריך תקין
+        if (!isNaN(parsedDate)) {
+            costDate = parsedDate;
+        }
+    }
     const newCost = new Cost({
         description,
         category,
