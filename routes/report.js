@@ -7,8 +7,10 @@ const MonthlyReport = require('../models/monthlyreport'); // Import the report m
  * Validate the query parameters for id, year, and month.
  */
 function validateQueryParams(query) {
-    const { id, year, month } = query;
-    return id && year && month;
+    const id = Number(query.id);
+    const year = Number(query.year);
+    const month = Number(query.month);
+    return !isNaN(id) && !isNaN(year) && !isNaN(month);
 }
 
 /**
@@ -92,10 +94,12 @@ router.get('/', async (req, res) => {
     try {
         // Validate the query parameters
         if (!validateQueryParams(req.query)) {
-            return res.status(400).json({ error: "Missing required parameters: id, year, or month." });
+            return res.status(400).json({ error: "Missing or invalid parameters: id, year, or month." });
         }
 
-        const { id, year, month } = req.query;
+        const id = Number(req.query.id);
+        const year = Number(req.query.year);
+        const month = Number(req.query.month);
         const monthFormatted = formatMonth(month); // Format month as two digits
 
         // Get or compute the monthly report
