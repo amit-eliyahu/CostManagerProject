@@ -52,10 +52,18 @@ function groupCostsByCategory(costs, categories) {
  * Fetch the existing report or calculate a new one if not found.
  */
 async function getOrCreateReport(id, year, month) {
-    const existingReport = await MonthlyReport.findOne({ userid: id, year, month });
-    if (existingReport) {
-        console.log("Returning cached report from database.");
-        return existingReport;
+    const currentDate = new Date();
+    const currentYear = currentDate.getUTCFullYear();
+    const currentMonth = currentDate.getUTCMonth() + 1; // getUTCMonth() מחזיר טווח של 0-11
+
+    if (parseInt(year) === currentYear && parseInt(month) === currentMonth) {
+        console.log("Current month requested, computing new report.");
+    } else {
+        const existingReport = await MonthlyReport.findOne({ userid: id, year, month });
+        if (existingReport) {
+            console.log("Returning cached report from database.");
+            return existingReport;
+        }
     }
 
     const { startDate, endDate } = calculateDateRange(year, month);
