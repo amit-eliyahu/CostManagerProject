@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const Cost = require('../models/cost'); // Import the cost model
+const Report = require('../models/report'); // Import the report model
 
 /**
  * Validate the query parameters for id, year, and month.
@@ -48,17 +49,7 @@ function groupCostsByCategory(costs, categories) {
 }
 
 /**
- * Get the costs for the given user within the calculated date range.
- */
-async function getCostsByDateRange(id, startDate, endDate) {
-    return await Cost.find({
-        userid: id,
-        date: { $gte: startDate, $lt: endDate }
-    });
-}
-
-/**
- * GET endpoint to get the monthly report for a user.
+ * Get or compute the monthly report for a user.
  */
 router.get('/', async (req, res) => {
     try {
@@ -70,27 +61,41 @@ router.get('/', async (req, res) => {
         const { id, year, month } = req.query;
         const monthFormatted = formatMonth(month); // Format month as two digits
 
-        const { startDate, endDate } = calculateDateRange(year, monthFormatted); // Calculate the start and end date for the month
+        // Check if the report already exists in the database
+        const existingReport = await Report.findOne({ userid: id, year, month });
+        if (existingReport) {
+            console.log("Returning cached report from database.");
+            return res.status(200).json(existingReport);
+        }
 
-        const costs = await getCostsByDateRange(id, startDate, endDate); // Get the costs for the given user and date range
+        // If report doesn't exist, calculate it
+        const { startDate, endDate } = calculateDateRange(year, monthFormatted);
+        const costs = await Cost.find({
+            userid: id,
+            date: { $gte: startDate, $lt: endDate }
+        });
 
-        const categories = Object.values(Cost.schema.path('category').enumValues); // Get the category values from the cost model
-
-        const categoryMap = groupCostsByCategory(costs, categories); // Group costs by category
+        // Get available categories from Cost schema
+        const categories = Object.values(Cost.schema.path('category').enumValues);
+        const categoryMap = groupCostsByCategory(costs, categories);
 
         // Prepare the grouped costs in the desired format
         const groupedCosts = categories.map(category => ({
-            [category]: categoryMap[category] || [] // Return an empty array if no costs found
+            [category]: categoryMap[category] || []
         }));
 
-        // Send the response with the grouped costs
-        res.status(200).json({
+        // Save the computed report in the database
+        const newReport = new Report({
             userid: id,
             year: parseInt(year),
             month: parseInt(month),
             costs: groupedCosts
         });
 
+        await newReport.save();
+        console.log("Computed and saved new report.");
+
+        res.status(200).json(newReport);
     } catch (error) {
         console.error("Error getting monthly report:", error);
         res.status(500).json({ error: "An error occurred while getting the monthly report." });
