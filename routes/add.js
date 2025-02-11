@@ -3,7 +3,7 @@ const router = express.Router();
 const Cost = require('../models/cost'); // Import cost model
 
 /**
- * Date function to parse and validate the date.
+ * Parses and validates a given date string.
  */
 function parseDate(date) {
     if (date) {
@@ -26,7 +26,9 @@ async function createCostItem(data) {
 }
 
 /**
- * POST endpoint to add a new cost item.
+ * POST /costs
+ * Adds a new cost item to the database.
+ * @route POST /
  */
 router.post('/', async (req, res) => {
     const { description, category, userid, sum, date } = req.body;

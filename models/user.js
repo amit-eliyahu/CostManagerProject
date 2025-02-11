@@ -3,6 +3,7 @@ const mongoose = require('mongoose');
 /**
  * Schema for User document in MongoDB.
  * Defines the structure and validation for user data.
+ * * @type {mongoose.Schema<User>}
  */
 const userSchema = new mongoose.Schema({
     id: { type: Number, required: true, unique: true }, // Unique ID for the user.
@@ -14,6 +15,7 @@ const userSchema = new mongoose.Schema({
 
 /**
  * User model to interact with the 'User' collection in the database.
+ * @type {mongoose.Model<User>}
  */
 const User = mongoose.model('User', userSchema);
 module.exports = User; // Exporting the model for use in other parts of the app.
