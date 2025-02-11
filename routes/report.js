@@ -25,16 +25,16 @@ router.get('/', async (req, res) => {
             date: { $gte: startDate, $lt: endDate }
         });
 
-        // השגת כל הקטגוריות האפשריות מתוך המסמכים ב-DB
-        const distinctCategories = await Cost.distinct("category");
+        // חילוץ הקטגוריות מתוך ה-enum של המודל
+        const categories = Object.values(Cost.schema.path('category').enumValues);  // חילוץ הערכים מתוך ה-enum
 
-        // אתחול המבנה לקיבוץ לפי קטגוריות
+        // אתחול המפה עם קטגוריות
         const categoryMap = {};
-        distinctCategories.forEach(category => {
+        categories.forEach(category => {
             categoryMap[category] = [];
         });
 
-        // מילוי ההוצאות לפי קטגוריות קיימות ב-DB
+        // מילוי ההוצאות לפי קטגוריות קיימות
         costs.forEach(cost => {
             categoryMap[cost.category].push({
                 sum: cost.sum,
@@ -44,7 +44,7 @@ router.get('/', async (req, res) => {
         });
 
         // המרת הקטגוריות לפורמט המבוקש
-        const groupedCosts = Object.keys(categoryMap).map(category => ({
+        const groupedCosts = categories.map(category => ({
             [category]: categoryMap[category]
         }));
 
