@@ -2,6 +2,7 @@
 
 /**
  * Module dependencies.
+ * Here we require app, debug, and http modules to start the server.
  */
 
 const app = require('../app');
@@ -10,6 +11,7 @@ const http = require('http');
 
 /**
  * Get port from environment and store in Express.
+ * This sets the port to either the environment variable PORT or default to 4000.
  */
 
 const port = normalizePort(process.env.PORT || '4000');
@@ -17,12 +19,14 @@ app.set('port', port);
 
 /**
  * Create HTTP server.
+ * This creates the server using the app and the http module.
  */
 
 const server = http.createServer(app);
 
 /**
  * Listen on provided port, on all network interfaces.
+ * This starts listening on the port and attaches event listeners for error and listening events.
  */
 
 server.listen(port);
@@ -31,18 +35,19 @@ server.on('listening', onListening);
 
 /**
  * Normalize a port into a number, string, or false.
+ * This function ensures that the port is either a valid port number or a named pipe.
  */
 
 function normalizePort(val) {
   const port = parseInt(val, 10);
 
   if (isNaN(port)) {
-    // named pipe
+    // If it's not a number, it's considered a named pipe.
     return val;
   }
 
   if (port >= 0) {
-    // port number
+    // If it's a valid number, return the port number.
     return port;
   }
 
@@ -51,6 +56,7 @@ function normalizePort(val) {
 
 /**
  * Event listener for HTTP server "error" event.
+ * This function handles errors that occur during the listening process.
  */
 
 function onError(error) {
@@ -77,6 +83,7 @@ function onError(error) {
 
 /**
  * Event listener for HTTP server "listening" event.
+ * This function runs when the server is successfully listening and logs the server's address.
  */
 
 function onListening() {

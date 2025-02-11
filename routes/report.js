@@ -1,54 +1,89 @@
 const express = require('express');
 const router = express.Router();
-const Cost = require('../models/cost'); // ייבוא המודל של ההוצאות
+const Cost = require('../models/cost'); // Import the cost model
 
+/**
+ * Validate the query parameters for id, year, and month.
+ */
+function validateQueryParams(query) {
+    const { id, year, month } = query;
+    return id && year && month;
+}
+
+/**
+ * Format the month to be two digits (e.g., 09 for September).
+ */
+function formatMonth(month) {
+    return String(month).padStart(2, '0');
+}
+
+/**
+ * Calculate the start and end dates for the given year and month.
+ */
+function calculateDateRange(year, month) {
+    const startDate = new Date(`${year}-${month}-01T00:00:00.000Z`);
+    const endDate = new Date(startDate);
+    endDate.setMonth(endDate.getMonth() + 1); // Move to the next month
+    return { startDate, endDate };
+}
+
+/**
+ * Group the cost items by their categories.
+ */
+function groupCostsByCategory(costs, categories) {
+    const categoryMap = {};
+    categories.forEach(category => {
+        categoryMap[category] = [];
+    });
+
+    costs.forEach(cost => {
+        categoryMap[cost.category].push({
+            sum: cost.sum,
+            description: cost.description,
+            day: cost.date.getUTCDate()
+        });
+    });
+
+    return categoryMap;
+}
+
+/**
+ * Get the costs for the given user within the calculated date range.
+ */
+async function getCostsByDateRange(id, startDate, endDate) {
+    return await Cost.find({
+        userid: id,
+        date: { $gte: startDate, $lt: endDate }
+    });
+}
+
+/**
+ * GET endpoint to get the monthly report for a user.
+ */
 router.get('/', async (req, res) => {
     try {
-        const { id, year, month } = req.query;
-
-        // בדיקה שהפרמטרים קיימים
-        if (!id || !year || !month) {
+        // Validate the query parameters
+        if (!validateQueryParams(req.query)) {
             return res.status(400).json({ error: "Missing required parameters: id, year, or month." });
         }
 
-        // המרת חודש למספר דו-ספרתי
-        const monthFormatted = String(month).padStart(2, '0');
+        const { id, year, month } = req.query;
+        const monthFormatted = formatMonth(month); // Format month as two digits
 
-        // חישוב טווח תאריכים לחודש
-        const startDate = new Date(`${year}-${monthFormatted}-01T00:00:00.000Z`);
-        const endDate = new Date(startDate);
-        endDate.setMonth(endDate.getMonth() + 1);
+        const { startDate, endDate } = calculateDateRange(year, monthFormatted); // Calculate the start and end date for the month
 
-        // שליפת כל ההוצאות של המשתמש עבור החודש והשנה הנתונים
-        const costs = await Cost.find({
-            userid: id,
-            date: { $gte: startDate, $lt: endDate }
-        });
+        const costs = await getCostsByDateRange(id, startDate, endDate); // Get the costs for the given user and date range
 
-        // חילוץ הקטגוריות מתוך ה-enum של המודל
-        const categories = Object.values(Cost.schema.path('category').enumValues);  // חילוץ הערכים מתוך ה-enum
+        const categories = Object.values(Cost.schema.path('category').enumValues); // Get the category values from the cost model
 
-        // אתחול המפה עם קטגוריות
-        const categoryMap = {};
-        categories.forEach(category => {
-            categoryMap[category] = [];
-        });
+        const categoryMap = groupCostsByCategory(costs, categories); // Group costs by category
 
-        // מילוי ההוצאות לפי קטגוריות קיימות
-        costs.forEach(cost => {
-            categoryMap[cost.category].push({
-                sum: cost.sum,
-                description: cost.description,
-                day: cost.date.getUTCDate()
-            });
-        });
-
-        // המרת הקטגוריות לפורמט המבוקש
+        // Prepare the grouped costs in the desired format
         const groupedCosts = categories.map(category => ({
-            [category]: categoryMap[category] || []  // אם אין נתונים בקטגוריה, מחזיר מערך ריק
+            [category]: categoryMap[category] || [] // Return an empty array if no costs found
         }));
 
-        // מחזירים JSON מסודר בפורמט הנדרש
+        // Send the response with the grouped costs
         res.status(200).json({
             userid: id,
             year: parseInt(year),

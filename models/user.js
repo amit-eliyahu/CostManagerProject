@@ -1,12 +1,19 @@
 const mongoose = require('mongoose');
 
+/**
+ * Schema for User document in MongoDB.
+ * Defines the structure and validation for user data.
+ */
 const userSchema = new mongoose.Schema({
-    id: { type: Number, required: true, unique: true },
-    first_name: { type: String, required: true },
-    last_name: { type: String, required: true },
-    birthday: { type: Date, required: true },
-    marital_status: { type: String, required: true, enum: ['single', 'married', 'divorced', 'widowed']}
+    id: { type: Number, required: true, unique: true }, // Unique ID for the user.
+    first_name: { type: String, required: true }, // User's first name.
+    last_name: { type: String, required: true }, // User's last name.
+    birthday: { type: Date, required: true }, // User's date of birth.
+    marital_status: { type: String, required: true, enum: ['single', 'married', 'divorced', 'widowed']} // User's marital status. Possible values are: single, married, divorced, or widowed.
 });
 
+/**
+ * User model to interact with the 'User' collection in the database.
+ */
 const User = mongoose.model('User', userSchema);
-module.exports = User;
+module.exports = User; // Exporting the model for use in other parts of the app.

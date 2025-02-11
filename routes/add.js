@@ -1,34 +1,42 @@
 const express = require('express');
 const router = express.Router();
-const Cost = require('../models/cost'); // מודל עלות
+const Cost = require('../models/cost'); // Import cost model
 
+/**
+ * Date function to parse and validate the date.
+ */
+function parseDate(date) {
+    if (date) {
+        const parsedDate = new Date(date);
+        if (!isNaN(parsedDate)) // Validate the date
+        {
+            return parsedDate;
+        }
+    }
+    return Date.now(); // Default to current date if invalid
+}
+
+/**
+ * Create and save a new cost item.
+ */
+async function createCostItem(data) {
+    const newCost = new Cost(data);
+    await newCost.save();
+    return newCost;
+}
+
+/**
+ * POST endpoint to add a new cost item.
+ */
 router.post('/', async (req, res) => {
     const { description, category, userid, sum, date } = req.body;
 
-    let costDate = Date.now();  // ברירת מחדל: תאריך הזמן הנוכחי.
-
-    if (date) {
-        const parsedDate = new Date(date);
-        // בדיקה אם התאריך שהוזן הוא תאריך תקין
-        if (!isNaN(parsedDate)) {
-            costDate = parsedDate;
-        }
-    }
-
-    const newCost = new Cost({
-        description,
-        category,
-        userid,
-        sum,
-        date: costDate
-    });
+    const costDate = parseDate(date); // Use date function to parse the date
 
     try {
-        // שמירת ההוצאה החדשה
-        await newCost.save();
+        const newCost = await createCostItem({ description, category, userid, sum, date: costDate }); // Create and save the new cost item
 
-        // מחזירים את הפריט שהוסף
-        res.status(201).json(newCost);
+        res.status(201).json(newCost); // Respond with the created cost item
     } catch (error) {
         console.error("Error adding cost item:", error);
         res.status(500).json({ error: "An error occurred while adding the cost item." });
