@@ -24,16 +24,16 @@ mongoose.connect(MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true })
 
 
 
-  const connection = mongoose.connection;
+const connection = mongoose.connection;
 
 
-  connection.once('open', () => {
-    console.log('MongoDB Atlas connection established successfully');
-    /*
-    createBaseUser();
-    */
+connection.once('open', () => {
+  console.log('MongoDB Atlas connection established successfully');
+  /*
+  createBaseUser();
+  */
 
-  });
+});
 
   /*
 function createBaseUser() {

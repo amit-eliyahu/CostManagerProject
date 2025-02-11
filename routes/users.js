@@ -7,7 +7,7 @@ router.get('/:userid', async (req, res) => {
   const userId = req.params.userid;  // מזהה המשתמש מה- URL
 
   try {
-    // חיפוש המשתמש לפי ה-id (ולא userid)
+    // חיפוש המשתמש לפי ה-id
     const user = await User.findOne({ id: Number(userId) });
     if (!user) {
       return res.status(404).json({ error: "User not found" });

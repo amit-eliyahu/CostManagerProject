@@ -1,6 +1,5 @@
 const express = require('express');
 const router = express.Router();
-const mongoose = require('mongoose');
 const Cost = require('../models/cost'); // ייבוא המודל של ההוצאות
 
 router.get('/', async (req, res) => {
@@ -12,9 +11,6 @@ router.get('/', async (req, res) => {
             return res.status(400).json({ error: "Missing required parameters: id, year, or month." });
         }
 
-        // המרת `id` ל- ObjectId אם צריך
-        const userId = mongoose.Types.ObjectId.isValid(id) ? new mongoose.Types.ObjectId(id) : id;
-
         // המרת חודש למספר דו-ספרתי
         const monthFormatted = String(month).padStart(2, '0');
 
@@ -25,28 +21,36 @@ router.get('/', async (req, res) => {
 
         // שליפת כל ההוצאות של המשתמש עבור החודש והשנה הנתונים
         const costs = await Cost.find({
-            userid: userId,
+            userid: id,
             date: { $gte: startDate, $lt: endDate }
         });
 
-        // קיבוץ ההוצאות לפי קטגוריה
-        const groupedCosts = {};
+        // קיבוץ ההוצאות לפי קטגוריה בפורמט הנכון
+        const groupedCosts = [];
+
+        // שמירת קטגוריות במבנה המתאים
+        const categoryMap = {};
         costs.forEach(cost => {
-            if (!groupedCosts[cost.category]) {
-                groupedCosts[cost.category] = [];
+            if (!categoryMap[cost.category]) {
+                categoryMap[cost.category] = [];
             }
-            groupedCosts[cost.category].push({
+            categoryMap[cost.category].push({
                 sum: cost.sum,
                 description: cost.description,
                 day: cost.date.getUTCDate() // שליפת היום מתוך התאריך
             });
         });
 
-        // מחזירים JSON מסודר
+        // המרה למערך לפי הדרישה
+        for (const category in categoryMap) {
+            groupedCosts.push({ [category]: categoryMap[category] });
+        }
+
+        // מחזירים JSON מסודר בפורמט הנדרש
         res.status(200).json({
             userid: id,
-            year: year,
-            month: month,
+            year: parseInt(year),
+            month: parseInt(month),
             costs: groupedCosts
         });
 
