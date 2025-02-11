@@ -56,7 +56,7 @@
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_interpreter_path": "node",
     "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "tasks.servers",
+    "settings.editor.selected.configurable": "tasks",
     "ts.external.directory.path": "C:\\Program Files\\JetBrains\\WebStorm 2024.3\\plugins\\javascript-plugin\\jsLanguageServicesImpl\\external",
     "vue.rearranger.settings.migration": "true"
   }
@@ -79,7 +79,7 @@
       <workItem from="1737883552589" duration="8318000" />
       <workItem from="1738233385433" duration="23272000" />
       <workItem from="1738269280099" duration="7000" />
-      <workItem from="1738320084031" duration="85839000" />
+      <workItem from="1738320084031" duration="86328000" />
     </task>
     <task id="LOCAL-00001" summary="initial commit">
       <option name="closed" value="true" />
