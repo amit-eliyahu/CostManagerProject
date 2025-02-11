@@ -1,11 +1,11 @@
 const mongoose = require('mongoose');
 
 const userSchema = new mongoose.Schema({
-    id: { type: String, required: true, unique: true },
+    id: { type: Number, required: true, unique: true },
     first_name: { type: String, required: true },
     last_name: { type: String, required: true },
     birthday: { type: Date, required: true },
-    marital_status: { type: String, required: true }
+    marital_status: { type: String, required: true, enum: ['single', 'married', 'divorced', 'widowed']}
 });
 
 const User = mongoose.model('User', userSchema);
