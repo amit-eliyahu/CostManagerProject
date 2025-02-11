@@ -45,7 +45,7 @@ router.get('/', async (req, res) => {
 
         // המרת הקטגוריות לפורמט המבוקש
         const groupedCosts = categories.map(category => ({
-            [category]: categoryMap[category]
+            [category]: categoryMap[category] || []  // אם אין נתונים בקטגוריה, מחזיר מערך ריק
         }));
 
         // מחזירים JSON מסודר בפורמט הנדרש
