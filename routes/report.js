@@ -56,7 +56,7 @@ async function getOrCreateReport(id, year, month) {
     const currentYear = currentDate.getUTCFullYear();
     const currentMonth = parseInt(currentDate.getUTCMonth() + 1); // getUTCMonth() מחזיר טווח של 0-11
 
-    if (parseInt(year) === currentYear && parseInt(month) === currentMonth) {
+    if (parseInt(year) >= currentYear && parseInt(month) >= currentMonth) {
         console.log("Current month requested, computing new report.");
     } else {
         const existingReport = await MonthlyReport.findOne({ userid: id, year, month });
