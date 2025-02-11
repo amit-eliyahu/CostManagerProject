@@ -25,26 +25,28 @@ router.get('/', async (req, res) => {
             date: { $gte: startDate, $lt: endDate }
         });
 
-        // קיבוץ ההוצאות לפי קטגוריה בפורמט הנכון
-        const groupedCosts = [];
+        // השגת כל הקטגוריות האפשריות מתוך המסמכים ב-DB
+        const distinctCategories = await Cost.distinct("category");
 
-        // שמירת קטגוריות במבנה המתאים
+        // אתחול המבנה לקיבוץ לפי קטגוריות
         const categoryMap = {};
+        distinctCategories.forEach(category => {
+            categoryMap[category] = [];
+        });
+
+        // מילוי ההוצאות לפי קטגוריות קיימות ב-DB
         costs.forEach(cost => {
-            if (!categoryMap[cost.category]) {
-                categoryMap[cost.category] = [];
-            }
             categoryMap[cost.category].push({
                 sum: cost.sum,
                 description: cost.description,
-                day: cost.date.getUTCDate() // שליפת היום מתוך התאריך
+                day: cost.date.getUTCDate()
             });
         });
 
-        // המרה למערך לפי הדרישה
-        for (const category in categoryMap) {
-            groupedCosts.push({ [category]: categoryMap[category] });
-        }
+        // המרת הקטגוריות לפורמט המבוקש
+        const groupedCosts = Object.keys(categoryMap).map(category => ({
+            [category]: categoryMap[category]
+        }));
 
         // מחזירים JSON מסודר בפורמט הנדרש
         res.status(200).json({
