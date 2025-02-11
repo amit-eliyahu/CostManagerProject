@@ -10,5 +10,5 @@ const reportSchema = new mongoose.Schema({
     costs: { type: Object, required: true }, // Store categorized costs
 });
 
-const Report = mongoose.model('Report', reportSchema);
+const Report = mongoose.model('MonthlyReport', reportSchema);
 module.exports = Report;
