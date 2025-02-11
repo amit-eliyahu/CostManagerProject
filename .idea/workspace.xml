@@ -56,6 +56,7 @@
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_interpreter_path": "node",
     "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "tasks.servers",
     "ts.external.directory.path": "C:\\Program Files\\JetBrains\\WebStorm 2024.3\\plugins\\javascript-plugin\\jsLanguageServicesImpl\\external",
     "vue.rearranger.settings.migration": "true"
   }
@@ -78,7 +79,7 @@
       <workItem from="1737883552589" duration="8318000" />
       <workItem from="1738233385433" duration="23272000" />
       <workItem from="1738269280099" duration="7000" />
-      <workItem from="1738320084031" duration="84800000" />
+      <workItem from="1738320084031" duration="85839000" />
     </task>
     <task id="LOCAL-00001" summary="initial commit">
       <option name="closed" value="true" />
@@ -89,7 +90,15 @@
       <updated>1739131276199</updated>
     </task>
     <option name="localTasksCounter" value="2" />
-    <servers />
+    <servers>
+      <JIRA />
+      <JIRA url="https://amit270399.atlassian.net">
+        <option name="apiType" value="REST_2_0" />
+        <option name="inCloud" value="true" />
+        <option name="jiraVersion" value="1001.0.0-SNAPSHOT" />
+        <username>amit270399@gmail.com</username>
+      </JIRA>
+    </servers>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
