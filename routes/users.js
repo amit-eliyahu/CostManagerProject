@@ -8,17 +8,24 @@ router.get('/:userid', async (req, res) => {
 
   try {
     // חיפוש המשתמש לפי ה-id
-    const user = await User.findOne({ id: Number(userId) });
+    const user = await User.findOne({ id: userId });
     if (!user) {
       return res.status(404).json({ error: "User not found" });
     }
 
-    // החזרת הנתונים
+    // חישוב totalCost על פי ההוצאות של המשתמש
+    const costs = await Cost.find({ userid: userId });
+    let totalCost = 0;
+    costs.forEach(cost => {
+      totalCost += cost.sum;
+    });
+
+    // החזרת הנתונים עם חישוב ה-totalCost
     res.status(200).json({
       first_name: user.first_name,
       last_name: user.last_name,
       id: userId,
-      total: user.totalCost // מחזיר את ה-totalCost ששמור אצל המשתמש
+      total: totalCost // חישוב התוצאה בזמן קריאה
     });
 
   } catch (error) {
