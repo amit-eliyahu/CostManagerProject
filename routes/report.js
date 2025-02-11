@@ -92,7 +92,8 @@ router.get('/', async (req, res) => {
             costs: groupedCosts
         });
 
-        await newReport.save();
+        const newMonthlyReport = new MonthlyReport(newReport);
+        await newMonthlyReport.save();
         console.log("Computed and saved new report.");
 
         res.status(200).json(newReport);
