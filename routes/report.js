@@ -54,7 +54,7 @@ function groupCostsByCategory(costs, categories) {
 async function getOrCreateReport(id, year, month) {
     const currentDate = new Date();
     const currentYear = currentDate.getUTCFullYear();
-    const currentMonth = formatMonth(currentDate.getUTCMonth() + 1); // getUTCMonth() מחזיר טווח של 0-11
+    const currentMonth = parseInt(currentDate.getUTCMonth() + 1); // getUTCMonth() מחזיר טווח של 0-11
 
     if (parseInt(year) === currentYear && parseInt(month) === currentMonth) {
         console.log("Current month requested, computing new report.");
