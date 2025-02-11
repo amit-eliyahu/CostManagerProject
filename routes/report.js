@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const Cost = require('../models/cost'); // Import the cost model
-const Report = require('../models/report'); // Import the report model
+const MonthlyReport = require('../models/monthlyReport'); // Import the report model
 
 /**
  * Validate the query parameters for id, year, and month.
@@ -62,7 +62,7 @@ router.get('/', async (req, res) => {
         const monthFormatted = formatMonth(month); // Format month as two digits
 
         // Check if the report already exists in the database
-        const existingReport = await Report.findOne({ userid: id, year, month });
+        const existingReport = await MonthlyReport.findOne({ userid: id, year, month });
         if (existingReport) {
             console.log("Returning cached report from database.");
             return res.status(200).json(existingReport);
@@ -85,7 +85,7 @@ router.get('/', async (req, res) => {
         }));
 
         // Save the computed report in the database
-        const newReport = new Report({
+        const newReport = new MonthlyReport({
             userid: id,
             year: parseInt(year),
             month: parseInt(month),
