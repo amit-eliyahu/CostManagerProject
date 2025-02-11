@@ -4,7 +4,7 @@ const User = require('../models/user');
 const Cost = require('../models/cost');
 
 router.get('/:userid', async (req, res) => {
-  const userId = req.params.userid;  // מזהה המשתמש מה- URL
+  const userId = Number(req.params.userid);  // מזהה המשתמש מה- URL
 
   try {
     // חיפוש המשתמש לפי ה-id
