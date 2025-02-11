@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const Cost = require('../models/cost'); // Import the cost model
-const MonthlyReport = require('../models/monthlyReport'); // Import the report model
+const MonthlyReport = require('../models/monthlyreport'); // Import the report model
 
 /**
  * Validate the query parameters for id, year, and month.
