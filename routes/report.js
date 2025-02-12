@@ -10,15 +10,15 @@ const MonthlyReport = require('../models/monthlyreport'); // Import the report m
  * @returns {boolean} - True if parameters are valid, otherwise false.
  */
 
-async function isUserIdExists(id) {
-    const user = await User.findOne({ id: id });
+async function isUserIdExists(inputid){
+    const user = await User.findOne({ id:Number(inputid)})
     return user !== null; // Return true if user is found, otherwise false
 }
 
 
 function validateQueryParams(query) {
     const { id, year, month } = query;
-    return id && year && month && isUserIdExists(id);
+    return id && year && month && (isUserIdExists(id)!==null);
 }
 
 /**
