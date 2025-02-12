@@ -16,10 +16,12 @@ async function isUserIdExists(inputid){
 }
 
 
-function validateQueryParams(query) {
+async function validateQueryParams(query) {
     const { id, year, month } = query;
-    return id && year && month && (isUserIdExists(id)!==null);
+    const userExists = await isUserIdExists(id); // מחכים לתוצאה של isUserIdExists
+    return id && year && month && userExists; // עכשיו אם המשתמש לא קיים, יוחזר false
 }
+
 
 /**
  * Format the month to be two digits (e.g., 09 for September).
