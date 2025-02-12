@@ -4,7 +4,24 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6d18a565-8092-400e-a600-0bf7a48b4635" name="Changes" comment="initial commit" />
+    <list default="true" id="6d18a565-8092-400e-a600-0bf7a48b4635" name="Changes" comment="initial commit">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/app.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/cost.js" beforeDir="false" afterPath="$PROJECT_DIR$/models/cost.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/monthlyreport.js" beforeDir="false" afterPath="$PROJECT_DIR$/models/monthlyreport.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/user.js" beforeDir="false" afterPath="$PROJECT_DIR$/models/user.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/about.js" beforeDir="false" afterPath="$PROJECT_DIR$/routes/about.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/add.js" beforeDir="false" afterPath="$PROJECT_DIR$/routes/add.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/routes/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/report.js" beforeDir="false" afterPath="$PROJECT_DIR$/routes/report.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/users.js" beforeDir="false" afterPath="$PROJECT_DIR$/routes/users.js" afterDir="false" />
+    </list>
+    <list id="7a39a784-6b7c-4540-928c-302d6fdddad9" name="Changes by User" comment="">
+      <change beforePath="$PROJECT_DIR$/routes/add.js" beforeDir="false" afterPath="$PROJECT_DIR$/routes/add.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/report.js" beforeDir="false" afterPath="$PROJECT_DIR$/routes/report.js" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -20,18 +37,51 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
-  "lastFilter": {
-    "state": "OPEN",
-    "assignee": "amit-eliyahu"
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;amit-eliyahu&quot;
   }
-}]]></component>
-  <component name="GithubPullRequestsUISettings"><![CDATA[{
-  "selectedUrlAndAccountId": {
-    "url": "https://github.com/amit-eliyahu/CostManagerProject.git",
-    "accountId": "5d856beb-c371-4187-80d2-048ffd704018"
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/amit-eliyahu/CostManagerProject.git&quot;,
+    &quot;accountId&quot;: &quot;5d856beb-c371-4187-80d2-048ffd704018&quot;
   }
-}]]></component>
+}</component>
+  <component name="LineStatusTrackerManager">
+    <file path="$PROJECT_DIR$/routes/report.js">
+      <ranges>
+        <range start1="7" end1="7" start2="7" end2="9" changelist="6d18a565-8092-400e-a600-0bf7a48b4635" />
+        <range start1="15" end1="15" start2="17" end2="19" changelist="6d18a565-8092-400e-a600-0bf7a48b4635" />
+        <range start1="22" end1="22" start2="26" end2="29" changelist="6d18a565-8092-400e-a600-0bf7a48b4635" />
+        <range start1="32" end1="32" start2="39" end2="42" changelist="6d18a565-8092-400e-a600-0bf7a48b4635" />
+        <range start1="52" end1="52" start2="62" end2="66" changelist="6d18a565-8092-400e-a600-0bf7a48b4635" />
+        <range start1="56" end1="57" start2="70" end2="71" changelist="6d18a565-8092-400e-a600-0bf7a48b4635" />
+        <range start1="59" end1="60" start2="73" end2="74" changelist="7a39a784-6b7c-4540-928c-302d6fdddad9" />
+        <range start1="63" end1="64" start2="77" end2="78" changelist="7a39a784-6b7c-4540-928c-302d6fdddad9" />
+        <range start1="74" end1="75" start2="88" end2="88" changelist="6d18a565-8092-400e-a600-0bf7a48b4635" />
+        <range start1="78" end1="79" start2="91" end2="91" changelist="6d18a565-8092-400e-a600-0bf7a48b4635" />
+        <range start1="91" end1="92" start2="103" end2="104" changelist="7a39a784-6b7c-4540-928c-302d6fdddad9" />
+        <range start1="97" end1="97" start2="109" end2="112" changelist="6d18a565-8092-400e-a600-0bf7a48b4635" />
+        <range start1="100" end1="101" start2="115" end2="115" changelist="6d18a565-8092-400e-a600-0bf7a48b4635" />
+        <range start1="102" end1="103" start2="116" end2="117" changelist="7a39a784-6b7c-4540-928c-302d6fdddad9" />
+        <range start1="106" end1="107" start2="120" end2="121" changelist="6d18a565-8092-400e-a600-0bf7a48b4635" />
+        <range start1="108" end1="109" start2="122" end2="122" changelist="6d18a565-8092-400e-a600-0bf7a48b4635" />
+        <range start1="112" end1="114" start2="125" end2="127" changelist="7a39a784-6b7c-4540-928c-302d6fdddad9" />
+      </ranges>
+    </file>
+    <file path="$PROJECT_DIR$/routes/add.js">
+      <ranges>
+        <range start1="6" end1="6" start2="6" end2="8" changelist="6d18a565-8092-400e-a600-0bf7a48b4635" />
+        <range start1="10" end1="12" start2="12" end2="13" changelist="6d18a565-8092-400e-a600-0bf7a48b4635" />
+        <range start1="20" end1="20" start2="21" end2="23" changelist="6d18a565-8092-400e-a600-0bf7a48b4635" />
+        <range start1="31" end1="31" start2="34" end2="36" changelist="6d18a565-8092-400e-a600-0bf7a48b4635" />
+        <range start1="38" end1="39" start2="43" end2="45" changelist="7a39a784-6b7c-4540-928c-302d6fdddad9" />
+        <range start1="42" end1="44" start2="48" end2="50" changelist="7a39a784-6b7c-4540-928c-302d6fdddad9" />
+      </ranges>
+    </file>
+  </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 8
 }</component>
@@ -46,6 +96,7 @@
     "Node.js.add.js.executor": "Run",
     "Node.js.bin\\www.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
     "git-widget-placeholder": "main",
     "javascript.nodejs.core.library.configured.version": "22.11.0",
     "javascript.nodejs.core.library.typings.version": "22.10.10",
@@ -56,7 +107,7 @@
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_interpreter_path": "node",
     "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "tasks",
+    "settings.editor.selected.configurable": "preferences.pluginManager",
     "ts.external.directory.path": "C:\\Program Files\\JetBrains\\WebStorm 2024.3\\plugins\\javascript-plugin\\jsLanguageServicesImpl\\external",
     "vue.rearranger.settings.migration": "true"
   }
@@ -79,7 +130,8 @@
       <workItem from="1737883552589" duration="8318000" />
       <workItem from="1738233385433" duration="23272000" />
       <workItem from="1738269280099" duration="7000" />
-      <workItem from="1738320084031" duration="99663000" />
+      <workItem from="1738320084031" duration="102873000" />
+      <workItem from="1739349421984" duration="6061000" />
     </task>
     <task id="LOCAL-00001" summary="initial commit">
       <option name="closed" value="true" />

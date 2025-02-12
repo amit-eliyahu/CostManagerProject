@@ -2,20 +2,23 @@ const mongoose = require('mongoose');
 
 /**
  * Mongoose schema for the Cost document.
- * Defines the structure and validation for cost data.
- * @type {mongoose.Schema<Cost>}
+ * @param {String} description - Description of the cost item.
+ * @param {String} category - Category of the cost item.
+ * @param {Number} userid - The user ID associated with the cost.
+ * @param {Number} sum - The amount of money spent.
+ * @param {Date} date - Date when the cost was recorded.
  */
 const costSchema = new mongoose.Schema({
-    description: { type: String, required: true }, // Description of the cost item.
-    category: { type: String, required: true, enum: ['food', 'health', 'housing', 'sport', 'education'] }, // Category of the cost item. Enums define acceptable values.
-    userid: { type: Number, required: true }, // The user ID associated with the cost.
-    sum: { type: Number, required: true }, // The amount of money spent.
-    date: { type: Date, default: Date.now } // Date when the cost was recorded, defaults to current date.
+    description: { type: String, required: true },
+    category: { type: String, required: true, enum: ['food', 'health', 'housing', 'sport', 'education'] },
+    userid: { type: Number, required: true },
+    sum: { type: Number, required: true },
+    date: { type: Date, default: Date.now }
 });
 
 /**
  * Cost model to interact with the 'Cost' collection in the database.
- * @type {mongoose.Model<Cost>}
+ * @param {Object} Cost - The Cost model to be exported.
  */
 const Cost = mongoose.model('Cost', costSchema);
-module.exports = Cost; // Exporting the model for use in other parts of the app.
+module.exports = Cost;

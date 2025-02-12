@@ -17,18 +17,19 @@ const MONGO_URI = process.env.MONGO_URI;
 
 /**
  * Connect to MongoDB.
+ * @returns {Promise<void>} - A promise that resolves when the connection is successful.
  */
 async function connectToDatabase() {
   try {
     await mongoose.connect(MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true });
-    console.log("Connected to MongoDB Atlas");
+    console.log('Connected to MongoDB Atlas');
 
     const connection = mongoose.connection;
     connection.once('open', () => {
       console.log('MongoDB Atlas connection established successfully');
     });
   } catch (err) {
-    console.error("Error connecting to MongoDB Atlas:", err);
+    console.error('Error connecting to MongoDB Atlas:', err);
   }
 }
 
@@ -59,7 +60,13 @@ app.use(function(req, res, next) {
   next(createError(404));
 });
 
-// Error handler
+/**
+ * Error handler.
+ * @param {Object} err - The error that occurred.
+ * @param {Object} req - The request object.
+ * @param {Object} res - The response object.
+ * @param {Function} next - The next middleware function.
+ */
 app.use(function(err, req, res, next) {
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};
@@ -69,4 +76,3 @@ app.use(function(err, req, res, next) {
 });
 
 module.exports = app;
-

@@ -5,11 +5,13 @@ const router = express.Router();
  * GET /team
  * Returns a list of team members.
  * @route GET /
+ * @param {Request} req - The request object.
+ * @param {Response} res - The response object.
  */
 router.get('/', function (req, res) {
     const teamMembers = [
-        { first_name: 'Amit', last_name: 'Eliyahu' }, //student 1 full name
-        { first_name: 'Sharon', last_name: 'Elbaz' } // student 2 full name
+        { first_name: 'Amit', last_name: 'Eliyahu' },
+        { first_name: 'Sharon', last_name: 'Elbaz' }
     ];
 
     res.status(200).json(teamMembers);
