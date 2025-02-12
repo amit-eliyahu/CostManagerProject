@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+const User = require('../models/user');
 const Cost = require('../models/cost'); // Import cost model
 
 /**
@@ -28,6 +29,13 @@ async function createCostItem(data) {
     return newCost;
 }
 
+
+async function isUserIdExists(userId) {
+    const user = await User.findOne({ id: userId });
+    return user !== null; // Return true if user is found, otherwise false
+}
+
+
 /**
  * POST /costs
  * Adds a new cost item to the database.
@@ -37,6 +45,11 @@ async function createCostItem(data) {
  */
 router.post('/', async (req, res) => {
     const { description, category, userid, sum, date } = req.body;
+
+    const userExists = await isUserIdExists(userid);
+    if (!userExists) {
+        return res.status(404).json({ error: "User not found" }); // Return error if user does not exist
+    }
 
     const costDate = parseDate(date); // Use date function to parse the date
 

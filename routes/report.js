@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+const User = require('../models/user');
 const Cost = require('../models/cost'); // Import the cost model
 const MonthlyReport = require('../models/monthlyreport'); // Import the report model
 
@@ -8,9 +9,16 @@ const MonthlyReport = require('../models/monthlyreport'); // Import the report m
  * @param {Object} query - The query parameters from the request.
  * @returns {boolean} - True if parameters are valid, otherwise false.
  */
+
+async function isUserIdExists(id) {
+    const user = await User.findOne({ id: id });
+    return user !== null; // Return true if user is found, otherwise false
+}
+
+
 function validateQueryParams(query) {
     const { id, year, month } = query;
-    return id && year && month;
+    return id && year && month && isUserIdExists(id);
 }
 
 /**
@@ -114,7 +122,7 @@ async function getOrCreateReport(id, year, month) {
 router.get('/', async (req, res) => {
     try {
         if (!validateQueryParams(req.query)) {
-            return res.status(400).json({ error: 'Missing required parameters: id, year, or month.' });
+            return res.status(400).json({ error: 'Missing or incorrect required parameters: id, year, or month.' });
         }
 
         const { id, year, month } = req.query;
