@@ -4,18 +4,17 @@ const User = require('../models/user');
 const Cost = require('../models/cost'); // Import the cost model
 const MonthlyReport = require('../models/monthlyreport'); // Import the report model
 
-/**
- * Validate the query parameters for id, year, and month.
- * @param {Object} query - The query parameters from the request.
- * @returns {boolean} - True if parameters are valid, otherwise false.
- */
 
 async function isUserIdExists(inputid){
     const user = await User.findOne({ id:Number(inputid)})
     return user !== null; // Return true if user is found, otherwise false
 }
 
-
+/**
+ * Validate the query parameters for id, year, and month.
+ * @param {Object} query - The query parameters from the request.
+ * @returns {boolean} - True if parameters are valid, otherwise false.
+ */
 async function validateQueryParams(query) {
     const { id, year, month } = query;
     const userExists = await isUserIdExists(id); // מחכים לתוצאה של isUserIdExists
