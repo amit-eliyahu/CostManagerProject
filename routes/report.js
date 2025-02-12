@@ -123,7 +123,7 @@ async function getOrCreateReport(id, year, month) {
  */
 router.get('/', async (req, res) => {
     try {
-        if (!validateQueryParams(req.query)) {
+        if (!(await validateQueryParams(req.query))) { // הוספת await כאן
             return res.status(400).json({ error: 'Missing or incorrect required parameters: id, year, or month.' });
         }
 
@@ -137,5 +137,6 @@ router.get('/', async (req, res) => {
         res.status(500).json({ error: 'An error occurred while getting the monthly report.' });
     }
 });
+
 
 module.exports = router;
